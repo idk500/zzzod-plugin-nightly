@@ -1,0 +1,11 @@
+[project]
+name = "zzzod-plugin-nightly"
+version = "1.0.0"
+description = "Nightly channel switcher plugin for ZenlessZoneZero-OneDragon"
+requires-python = ">=3.11"
+readme = "README.md"
+license = { text = "MIT" }
+
+[tool.ruff]
+line-length = 88
+target-version = "py311"
