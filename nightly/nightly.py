@@ -37,13 +37,14 @@ class NightlyApp(Application):
             ctx=ctx,
             app_id=nightly_const.APP_ID,
             op_name=nightly_const.APP_NAME,
+            need_check_game_win=False,  # 只改配置文件，不进游戏
         )
 
     def handle_init(self) -> None:
         """初始化节点编排。"""
         Application.handle_init(self)
 
-    @operation_node(name='切换到 Nightly 尝鲜版', is_start_node=True)
+    @operation_node(name='切换到 Nightly 尝鲜版', is_start_node=True, screenshot_before_round=False)
     def switch_to_nightly(self) -> OperationRoundResult:
         """写入增强源声明与用户选择，提示重启生效。"""
         current_url = self.ctx.env_config.repository_url
