@@ -96,7 +96,7 @@ class NightlyApp(Application):
         }
         branches[NIGHTLY_BRANCH] = {
             'label': 'Nightly 尝鲜版',
-            'desc': '激进跟进上游、尽力吸纳社区提交，可能不稳定；随时可在资源管理切回官方版',
+            'desc': '基座每月更新一班车（发车前过全链回归）、尽力吸纳社区提交，可能不稳定；随时可在资源管理切回官方版',
         }
 
         repositories['options'] = options
