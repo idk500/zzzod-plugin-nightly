@@ -10,6 +10,7 @@
 from typing import Any
 
 import yaml
+from one_dragon.base.operation.application import application_const
 from one_dragon.base.operation.application_base import Application
 from one_dragon.base.operation.operation_node import operation_node
 from one_dragon.base.operation.operation_round_result import OperationRoundResult
@@ -39,6 +40,11 @@ class NightlyApp(Application):
             op_name=nightly_const.APP_NAME,
             need_check_game_win=False,  # 只改配置文件，不进游戏
         )
+        self.config = self.ctx.run_context.get_config(
+            app_id=nightly_const.APP_ID,
+            instance_idx=ctx.current_instance_idx,
+            group_id=application_const.DEFAULT_GROUP_ID,
+        )
 
     def handle_init(self) -> None:
         """初始化节点编排。"""
@@ -52,6 +58,14 @@ class NightlyApp(Application):
 
         if current_url == NIGHTLY_REPOSITORY_URL and current_branch == NIGHTLY_BRANCH:
             return self.round_success(status='当前已是 Nightly 尝鲜版，无需重复切换')
+
+        if not self.config.confirm_switch:
+            # 防误触闸：改写代码源配置前必须先在设置里确认
+            return self.round_fail(
+                status='未确认切换，本次运行未做任何修改。'
+                       '请到「应用运行」页本应用卡片的「设置」里勾选'
+                       '「确认切换到 Nightly 尝鲜版」后再运行'
+            )
 
         migrating = current_branch == LEGACY_BRANCH
         if not migrating and current_url != NIGHTLY_REPOSITORY_URL:

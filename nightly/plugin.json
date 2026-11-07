@@ -3,8 +3,8 @@
   "name": "Nightly 尝鲜版",
   "summary": "一键把代码源切到 idk500 增强源的 nightly 分支：基座每月更新一班车（发车前过全链回归），插件随时更新。可能不稳定，随时可切回官方版。",
   "cover": "assets/ui/cover.png",
-  "version": "1.0.2",
-  "versionCode": 3,
+  "version": "1.0.3",
+  "versionCode": 4,
   "defaultGroup": false,
   "needNotify": false,
   "author": {
